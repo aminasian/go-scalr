@@ -23,7 +23,7 @@ type users struct {
 }
 
 func (s *users) ReadCurrent(ctx context.Context) (*User, error) {
-	req, err := s.client.newRequest("GET", "user", nil)
+	req, err := s.client.newRequest("GET", "me", nil)
 	if err != nil {
 		return nil, err
 	}
