@@ -84,7 +84,6 @@ type WorkspaceVCSRepo struct {
 	Branch            string   `json:"branch"`
 	Identifier        string   `json:"identifier"`
 	IngressSubmodules bool     `json:"ingress-submodules"`
-	Path              string   `json:"path"`
 	TriggerPrefixes   []string `json:"trigger-prefixes,omitempty"`
 	DryRunsEnabled    bool     `json:"dry-runs-enabled"`
 }
