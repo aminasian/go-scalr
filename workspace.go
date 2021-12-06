@@ -81,11 +81,10 @@ type Hooks struct {
 
 // WorkspaceVCSRepo contains the configuration of a VCS integration.
 type WorkspaceVCSRepo struct {
-	Branch            string   `json:"branch"`
-	Identifier        string   `json:"identifier"`
-	IngressSubmodules bool     `json:"ingress-submodules"`
-	TriggerPrefixes   []string `json:"trigger-prefixes,omitempty"`
-	DryRunsEnabled    bool     `json:"dry-runs-enabled"`
+	Branch          string   `json:"branch"`
+	Identifier      string   `json:"identifier"`
+	TriggerPrefixes []string `json:"trigger-prefixes,omitempty"`
+	DryRunsEnabled  bool     `json:"dry-runs-enabled"`
 }
 
 // WorkspaceActions represents the workspace actions.
@@ -182,12 +181,10 @@ type WorkspaceCreateOptions struct {
 
 // WorkspaceVCSRepoOptions represents the configuration options of a VCS integration.
 type WorkspaceVCSRepoOptions struct {
-	Branch            *string   `json:"branch,omitempty"`
-	Identifier        *string   `json:"identifier,omitempty"`
-	IngressSubmodules *bool     `json:"ingress-submodules,omitempty"`
-	Path              *string   `json:"path,omitempty"`
-	TriggerPrefixes   *[]string `json:"trigger-prefixes,omitempty"`
-	DryRunsEnabled    *bool     `json:"dry-runs-enabled,omitempty"`
+	Branch          *string   `json:"branch,omitempty"`
+	Identifier      *string   `json:"identifier,omitempty"`
+	TriggerPrefixes *[]string `json:"trigger-prefixes,omitempty"`
+	DryRunsEnabled  *bool     `json:"dry-runs-enabled,omitempty"`
 }
 
 // HooksOptions represents the WorkspaceHooks configuration.
