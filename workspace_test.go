@@ -75,6 +75,8 @@ func TestWorkspacesCreate(t *testing.T) {
 			Operations:       Bool(true),
 			TerraformVersion: String("0.12.25"),
 			WorkingDirectory: String("bar/"),
+			ApplySchedule:    String("30 3 5 3-5 2"),
+			DestroySchedule:  String("30 5 5 3-5 2"),
 		}
 
 		ws, err := client.Workspaces.Create(ctx, options)
@@ -95,6 +97,8 @@ func TestWorkspacesCreate(t *testing.T) {
 			assert.Equal(t, *options.Operations, item.Operations)
 			assert.Equal(t, *options.TerraformVersion, item.TerraformVersion)
 			assert.Equal(t, *options.WorkingDirectory, item.WorkingDirectory)
+			assert.Equal(t, *options.ApplySchedule, item.ApplySchedule)
+			assert.Equal(t, *options.DestroySchedule, item.DestroySchedule)
 		}
 	})
 
