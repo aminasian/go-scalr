@@ -276,6 +276,8 @@ func TestWorkspacesUpdate(t *testing.T) {
 		assert.NotEqual(t, wsTest.AutoApply, wsAfter.AutoApply)
 		assert.NotEqual(t, wsTest.TerraformVersion, wsAfter.TerraformVersion)
 		assert.Equal(t, wsTest.WorkingDirectory, wsAfter.WorkingDirectory)
+		assert.Equal(t, wsTest.ApplySchedule, wsAfter.ApplySchedule)
+		assert.Equal(t, wsTest.DestroySchedule, wsAfter.DestroySchedule)
 	})
 
 	t.Run("when attaching/detaching an agent pool", func(t *testing.T) {
@@ -306,6 +308,8 @@ func TestWorkspacesUpdate(t *testing.T) {
 			Operations:       Bool(false),
 			TerraformVersion: String("0.12.25"),
 			WorkingDirectory: String("baz/"),
+			ApplySchedule:    String("30 3 */5 1-2 1"),
+			DestroySchedule:  String("30 5 */5 1-2 1"),
 		}
 
 		w, err := client.Workspaces.Update(ctx, wsTest.ID, options)
@@ -324,6 +328,8 @@ func TestWorkspacesUpdate(t *testing.T) {
 			assert.Equal(t, *options.Operations, item.Operations)
 			assert.Equal(t, *options.TerraformVersion, item.TerraformVersion)
 			assert.Equal(t, *options.WorkingDirectory, item.WorkingDirectory)
+			assert.Equal(t, *options.ApplySchedule, item.ApplySchedule)
+			assert.Equal(t, *options.DestroySchedule, item.DestroySchedule)
 		}
 	})
 

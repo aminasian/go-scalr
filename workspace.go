@@ -59,6 +59,8 @@ type Workspace struct {
 	TerraformVersion     string                `jsonapi:"attr,terraform-version"`
 	VCSRepo              *WorkspaceVCSRepo     `jsonapi:"attr,vcs-repo"`
 	WorkingDirectory     string                `jsonapi:"attr,working-directory"`
+	ApplySchedule        string                `jsonapi:"attr,apply-schedule"`
+	DestroySchedule      string                `jsonapi:"attr,destroy-schedule"`
 	HasResources         bool                  `jsonapi:"attr,has-resources"`
 	Hooks                *Hooks                `jsonapi:"attr,hooks"`
 
@@ -167,6 +169,12 @@ type WorkspaceCreateOptions struct {
 	// root of your repository and is typically set to a subdirectory matching the
 	// environment when multiple environments exist within the same repository.
 	WorkingDirectory *string `jsonapi:"attr,working-directory,omitempty"`
+
+	// Cron expression for scheduled runs. Time should be in UTC.
+	ApplySchedule *string `jsonapi:"attr,apply-schedule,omitempty"`
+
+	// Cron expression for scheduled destroy runs. Time should be in UTC.
+	DestroySchedule *string `jsonapi:"attr,destroy-schedule,omitempty"`
 
 	// Specifies the VcsProvider for workspace vcs-repo. Required if vcs-repo attr passed
 	VcsProvider *VcsProvider `jsonapi:"relation,vcs-provider,omitempty"`
@@ -327,6 +335,12 @@ type WorkspaceUpdateOptions struct {
 	// the environment when multiple environments exist within the same
 	// repository.
 	WorkingDirectory *string `jsonapi:"attr,working-directory,omitempty"`
+
+	// Cron expression for scheduled runs. Time should be in UTC.
+	ApplySchedule *string `jsonapi:"attr,apply-schedule,omitempty"`
+
+	// Cron expression for scheduled destroy runs. Time should be in UTC.
+	DestroySchedule *string `jsonapi:"attr,destroy-schedule,omitempty"`
 
 	// Specifies the VcsProvider for workspace vcs-repo.
 	VcsProvider *VcsProvider `jsonapi:"relation,vcs-provider,omitempty"`
