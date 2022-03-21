@@ -18,6 +18,8 @@ type Runs interface {
 	Read(ctx context.Context, runID string) (*Run, error)
 	// Create a new run with the given options.
 	Create(ctx context.Context, options RunCreateOptions) (*Run, error)
+	// List all runs with the given options
+	List(ctx context.Context, options RunListOptions) ([]Run, error)
 }
 
 // runs implements Runs.
@@ -92,6 +94,13 @@ type RunCreateOptions struct {
 	Workspace *Workspace `jsonapi:"relation,workspace"`
 }
 
+// RunListOptions represents the options for filtering a list of runs
+type RunListOptions struct {
+	WorkspaceFilter string `url:"filter[workspace]"`
+	Include string `url:"include"`
+	DryRuns string `url:"include-dry-runs"`
+}
+
 func (o RunCreateOptions) valid() error {
 	if o.Workspace == nil {
 		return errors.New("workspace is required")
@@ -156,4 +165,18 @@ func (s *runs) Read(ctx context.Context, runID string) (*Run, error) {
 	}
 
 	return r, nil
+}
+
+// List all runs in a workspace
+func (s *runs) List(ctx context.Context, options RunListOptions) ([]Run, error) {
+	req, err := s.client.newRequest("GET", "runs", &options)
+	if err != nil {
+		return nil, err
+	}
+	var runs []Run
+	err = s.client.do(ctx, req, runs)
+	if err != nil {
+		return nil, err
+	}
+	return runs, nil
 }
