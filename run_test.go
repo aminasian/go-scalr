@@ -98,3 +98,25 @@ func TestRunsCreate(t *testing.T) {
 		assert.Equal(t, cvTest.ID, r.ConfigurationVersion.ID)
 	})
 }
+
+func TestRunsList(t *testing.T) {
+	client := testClient(t)
+	ctx := context.Background()
+
+	wsTest, wsTestCleanup := createWorkspace(t, client, nil)
+	defer wsTestCleanup()
+
+	cvTest, _ := createConfigurationVersion(t, client, wsTest)
+
+	t.Run("with valid options", func(t *testing.T) {
+		options := RunListOptions{
+			WorkspaceFilter: wsTest.ID,
+			Include:         "configuration-version,vcs-revision,workspace,created-by",
+			DryRuns: "",
+		}
+
+		r, err := client.Runs.List(ctx, options)
+		require.NoError(t, err)
+		assert.Equal(t, cvTest.ID, r[0].ConfigurationVersion.ID)
+	})
+}
